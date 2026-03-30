@@ -17,12 +17,9 @@ ws.onmessage = (e) => {
 
 function send() {
   const input = document.getElementById("msg");
-  const chat = document.getElementById("chat");
+  const message = input.value.trim();
 
-  const message = input.value;
-
-  chat.innerHTML += `<p><b>You:</b> ${message}</p>`;
-  chat.scrollTop = chat.scrollHeight;
+  if (message === "") return;
 
   ws.send(message);
 
