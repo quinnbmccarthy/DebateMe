@@ -1,17 +1,32 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DebateMe — Room</title>
   <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="chat-body">
 
-<h2 id="roomTitle"></h2>
+<div class="chat-page">
+  <header class="chat-header">
+    <div class="chat-header-left">
+      <div class="chat-header-icon">💬</div>
+      <div>
+        <h2 id="roomTitle">Room</h2>
+        <div class="room-label">Live debate room</div>
+      </div>
+    </div>
+    <button class="btn-leave" onclick="leave()">Leave Room</button>
+  </header>
 
-<div id="chat"></div>
+  <div class="chat-messages" id="chat"></div>
 
-<input id="msg">
-<button onclick="send()">Send</button>
-<button onclick="leave()">Leave</button>
+  <div class="chat-input-bar">
+    <input id="msg" type="text" placeholder="Type a message…" autocomplete="off">
+    <button class="btn-send" onclick="send()">Send</button>
+  </div>
+</div>
 
 <script src="app.js"></script>
 
