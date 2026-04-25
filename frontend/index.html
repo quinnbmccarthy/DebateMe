@@ -8,41 +8,100 @@
 </head>
 <body>
 
-<div class="join-wrapper">
-  <div class="join-card">
-    <div class="join-logo">
-      <h1>Debate<span>Me</span></h1>
-      <p>Join a room and start the conversation</p>
+<div class="lobby-wrapper">
+  <div class="lobby-header">
+    <h1>Debate<span>Me</span></h1>
+    <p>Choose a topic room to start debating</p>
+  </div>
+  <div class="topic-grid">
+    <div class="topic-tile" onclick="selectTopic('Politics', '110001')">
+      <div class="tile-name">Politics</div>
+      <div class="tile-room">Room #110001</div>
     </div>
+    <div class="topic-tile" onclick="selectTopic('Movies', '110002')">
+      <div class="tile-name">Movies</div>
+      <div class="tile-room">Room #110002</div>
+    </div>
+    <div class="topic-tile" onclick="selectTopic('Sports', '110003')">
+      <div class="tile-name">Sports</div>
+      <div class="tile-room">Room #110003</div>
+    </div>
+    <div class="topic-tile" onclick="selectTopic('Theology', '110004')">
+      <div class="tile-name">Theology</div>
+      <div class="tile-room">Room #110004</div>
+    </div>
+    <div class="topic-tile" onclick="selectTopic('Science', '110005')">
+      <div class="tile-name">Science</div>
+      <div class="tile-room">Room #110005</div>
+    </div>
+    <div class="topic-tile topic-custom" onclick="selectTopic('custom', null)">
+      <div class="tile-name">Join Room</div>
+      <div class="tile-room">Enter a room code</div>
+    </div>
+  </div>
+</div>
 
+<div class="modal-overlay" id="modal">
+  <div class="modal-card">
+    <h2 class="modal-title" id="modal-title">Join Room</h2>
     <div class="form-group">
-      <label for="username">Username</label>
-      <input id="username" type="text" placeholder="Enter your name" autocomplete="off">
+      <label for="modal-username">Username</label>
+      <input id="modal-username" type="text" placeholder="Enter your name" autocomplete="off">
     </div>
-
-    <div class="form-group">
-      <label for="room">Room ID</label>
-      <input id="room" type="text" placeholder="Enter room code" autocomplete="off">
+    <div class="form-group" id="room-code-group">
+      <label for="modal-room">Room Code</label>
+      <input id="modal-room" type="text" placeholder="Enter 6-digit code" maxlength="6" autocomplete="off">
     </div>
-
-    <button class="btn-join" onclick="join()">Join Room</button>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeModal()">Cancel</button>
+      <button class="btn-join" onclick="joinRoom()">Join</button>
+    </div>
   </div>
 </div>
 
 <script>
-function join() {
-  const username = document.getElementById("username").value.trim();
-  const room = document.getElementById("room").value.trim();
-  if (!username || !room) return;
+let selectedRoom = null;
 
-  localStorage.setItem("username", username);
-  localStorage.setItem("room", room);
+function selectTopic(name, roomId) {
+  selectedRoom = roomId;
+  const isCustom = roomId === null;
 
-  window.location.href = "chat.html";
+  document.getElementById('modal-title').textContent = isCustom ? 'Join a Room' : 'Join ' + name;
+  document.getElementById('room-code-group').style.display = isCustom ? 'block' : 'none';
+  document.getElementById('modal-username').value = '';
+  if (isCustom) document.getElementById('modal-room').value = '';
+
+  document.getElementById('modal').classList.add('active');
+  document.getElementById('modal-username').focus();
 }
 
-document.addEventListener("keydown", (e) => {
-  if (e.key === "Enter") join();
+function closeModal() {
+  document.getElementById('modal').classList.remove('active');
+  selectedRoom = null;
+}
+
+function joinRoom() {
+  const username = document.getElementById('modal-username').value.trim();
+  if (!username) return;
+
+  let room = selectedRoom;
+  if (room === null) {
+    room = document.getElementById('modal-room').value.trim();
+    if (!room) return;
+  }
+
+  localStorage.setItem('username', username);
+  localStorage.setItem('room', room);
+  window.location.href = 'chat.html';
+}
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') closeModal();
+  if (e.key === 'Enter' && document.getElementById('modal').classList.contains('active')) joinRoom();
+});
+
+document.getElementById('modal').addEventListener('click', (e) => {
+  if (e.target === document.getElementById('modal')) closeModal();
 });
 </script>
 
