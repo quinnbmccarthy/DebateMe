@@ -13,6 +13,15 @@ echo "Starting C server..."
 
 C_PID=$!
 
+echo "Waiting for C server on port 8080..."
+for i in $(seq 1 20); do
+  sleep 0.5
+  if nc -z 127.0.0.1 8080 2>/dev/null; then
+    echo "C server ready"
+    break
+  fi
+done
+
 echo "Starting Node server..."
 node backend/server.js &
 

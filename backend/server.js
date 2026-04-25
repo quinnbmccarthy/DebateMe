@@ -50,6 +50,7 @@ async function callJudge(roomId) {
 wss.on("connection", (ws) => {
   const tcpClient = new net.Socket();
   tcpClient.connect(8080, "127.0.0.1");
+  tcpClient.on("error", (err) => console.error("TCP bridge error:", err.message));
 
   let username = null;
   let roomId = null;
