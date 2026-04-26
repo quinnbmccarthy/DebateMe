@@ -19,7 +19,7 @@ Our top 4 themes are:
 One key design choice we made was determining the winner of the debates. This was a significant issue because if we used a general AI, users might send messages that the AI would agree with instead of contributing meaningful arguments. To solve this, we set up a simple agent that instructs the LLM to remain unbiased while judging.
 
 ## Challenges
-One big challenge we faced was integrating an LLM into the project without using Python. We solved this by setting up an Anthropic API call that sends the LLM the entire chat log, as well as our prewritten non-bias statement. Through this, we have learned not only how to set up a multi-client chat, but also how to integrate AI into non-Python projects.
+One big challenge we faced was integrating an LLM into the project without using Python. We solved this by setting up an Anthropic API call that sends the LLM the entire chat log, as well as our prewritten non-biased statement. Through this, we have learned not only how to set up a multi-client chat, but also how to integrate AI into non-Python projects.
 
 ## How to Run 
 One Time Execution:
