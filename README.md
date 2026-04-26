@@ -13,6 +13,8 @@ We used C for the backend and Node.js for the frontend
 One Time Execution:
 ```
 chmod +x setup.sh
+export ANTHROPIC_API_KEY="sk-ant-..."
 ./setup.sh
 ```
+Anothropic API key is necessary for AI judge feature.
 Then just run `./run.sh` to start server.c and server.js (it should open to port 3000, `http://localhost:3000`)
